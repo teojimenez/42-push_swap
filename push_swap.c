@@ -13,7 +13,30 @@
 #include "push_swap.h"
 #include "printf/ft_printf.h"
 
-int atoi_error(char *str)
+int look_error(char *str)
+{
+	char *regex;
+	int	i;
+	
+	i = 0;
+	regex = "-0123456789";
+	while(*str)
+	{
+		i = 0;
+		while(regex[i] != '\0')
+		{
+			if (regex[i] == *str)
+				break;
+			i++;
+		}
+		if(regex[i] == '\0' && regex[i - 1] != *str)
+			return (-1);
+		str++;
+	}
+	return (0);
+}
+
+int ft_atoi(char *str)
 {
 	int	i;
 	int	nb;
@@ -22,9 +45,6 @@ int atoi_error(char *str)
 	sig = 1;
 	i = 0;
 	nb = 0;
-	//look for something more
-	
-
 	if (str[i] == '-')
 	{
 		sig = sig * -1;
@@ -38,34 +58,26 @@ int atoi_error(char *str)
 	return (nb * sig);
 }
 
-int	check_num(int argc, char **argv)
+int	convert_add_num(int argc, char **argv)
 {
 	int i = 1;
 
-	// int *argv_int;
 	int *error = 0;
-	// argv_int = (int *)malloc(argc - 1  * sizeof(int));
-	// if (!argv_int)
-	// 	return (-1); //error de asignar memoria
-	while (i < argc - 1)
+	while (i < argc)
 	{
-        if (atoi_error(argv[i]) == -1)
-        {
-            // free(argv_int);
+        if (look_error(argv[i]) == -1)
             return (-1);
-        }
-        // argv_int[i] = atoi_error(argv[i]);
+		else
+			ft_atoi(argv[i]);
         i++;
 	}
-	// free(argv_int);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	//put the numbers in a list
-	//check is all argv are numbers
-	if(check_num(argc, argv) == -1)
+	if (convert_add_num(argc, argv) == -1)
 		ft_printf("ERROR");
 	return (0);
 }
