@@ -58,17 +58,22 @@ int ft_atoi(char *str)
 	return (nb * sig);
 }
 
-int	convert_add_num(int argc, char **argv)
+int	convert_add_num(int argc, char **argv, t_node **lst)
 {
 	int i = 1;
+	int nb = 0;
 
-	int *error = 0;
 	while (i < argc)
 	{
         if (look_error(argv[i]) == -1)
+		{
             return (-1);
+		}
 		else
-			ft_atoi(argv[i]);
+		{
+			nb = ft_atoi(argv[i]);
+			ft_lstadd_back(lst, ft_newnode(nb));
+		}
         i++;
 	}
 	return (0);
@@ -76,8 +81,14 @@ int	convert_add_num(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
+	t_node **stock_a;
+
+	stock_a = (t_node **)malloc(sizeof(t_node *)); //porque no t_node;
 	//put the numbers in a list
-	if (convert_add_num(argc, argv) == -1)
+	if (convert_add_num(argc, argv, stock_a) == -1)
+	{
+		free_stack(stock_a);
 		ft_printf("ERROR");
+	}
 	return (0);
 }

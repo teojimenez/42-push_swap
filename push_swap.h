@@ -21,10 +21,15 @@
 typedef struct s_node
 {
 	int		content;
-	struct s_node	*before;
-	struct s_node	*after;
+	int		index;
+	// struct s_node	*before;
+	// struct s_node	*after;
+	struct s_node	*next;
 } t_node;
 
 //functions
+void	ft_lstadd_back(t_node **lst, t_node *new);
+t_node	*ft_newnode(int content);
+void    free_stack(t_node **list);
 
 #endif
