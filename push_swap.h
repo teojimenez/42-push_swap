@@ -16,7 +16,7 @@
 # include "push_swap.h"
 # include <stdio.h> //printf
 # include <stdlib.h> //malloc
-
+# include <unistd.h>
 //list
 typedef struct s_node
 {
