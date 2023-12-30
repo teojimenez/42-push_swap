@@ -12,9 +12,9 @@
 
 NAME = push_swap
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
-SRC = 	push_swap.c \
+SRC = 	push_swap.c push_swap_utils.c lst_utils.c \
 		
 
 OBJECTS = $(SRC:.c=.o)
@@ -25,7 +25,7 @@ CC = gcc
 			${CC} ${FLAGS} -I ./ -c $< -o $@
 
 $(NAME):	${OBJECTS}
-		ar rc ${NAME} ${OBJECTS}
+		${CC} ${FLAGS} -o ${NAME} ${OBJECTS}
 
 all: $(NAME)
 

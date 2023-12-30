@@ -23,7 +23,7 @@ t_node	*ft_newnode(int content)
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node.content = content;
+	node->content = content;
 	node->next = NULL;
 	return (node);
 }

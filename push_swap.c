@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "printf/ft_printf.h"
 
 int look_error(char *str)
 {
@@ -66,13 +65,19 @@ int	convert_add_num(int argc, char **argv, t_node **lst)
 	while (i < argc)
 	{
         if (look_error(argv[i]) == -1)
-		{
             return (-1);
-		}
 		else
 		{
 			nb = ft_atoi(argv[i]);
-			ft_lstadd_back(lst, ft_newnode(nb));
+			t_node *new;
+			
+			new = ft_newnode(nb);
+			if(!new)
+			{
+				free_stack(lst);	
+				return(-1);
+			}
+			ft_lstadd_back(lst, new);
 		}
         i++;
 	}
@@ -88,7 +93,7 @@ int	main(int argc, char **argv)
 	if (convert_add_num(argc, argv, stock_a) == -1)
 	{
 		free_stack(stock_a);
-		ft_printf("ERROR");
+		write(1, "ERROR", 5);
 	}
 	return (0);
 }
