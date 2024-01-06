@@ -1,19 +1,20 @@
 #include "push_swap.h"
 
-void	ft_lstadd_back(t_node **lst, t_node *new)
+void ft_lstadd_back(t_node **lst, t_node *new)
 {
-	t_node	*p;
+    t_node *p;
 
-	if (*(lst))
-	{
-		p = *(lst);
-		while (p->next)
-			p = p->next;
-		p->next = new;
-	}
-	else
-		*(lst) = new;
+    if (*lst)
+    {
+        p = *lst;
+        while (p->next)
+            p = p->next;
+        p->next = new;
+    }
+    else
+        *lst = new;
 }
+
 
 
 t_node	*ft_newnode(int content)

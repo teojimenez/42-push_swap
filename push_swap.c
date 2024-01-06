@@ -57,7 +57,12 @@ int ft_atoi(char *str)
 	return (nb * sig);
 }
 
-int	convert_add_num(int argc, char **argv, t_node **lst)
+void	ft_index(int argc, t_node **lst)
+{
+	
+}
+
+int	convert_nb_index(int argc, char **argv, t_node **lst)
 {
 	int i = 1;
 	int nb = 0;
@@ -81,6 +86,8 @@ int	convert_add_num(int argc, char **argv, t_node **lst)
 		}
         i++;
 	}
+	ft_index(argc, lst);
+
 	return (0);
 }
 
@@ -90,7 +97,7 @@ int	main(int argc, char **argv)
 
 	stock_a = (t_node **)malloc(sizeof(t_node *)); //porque no t_node;
 	//put the numbers in a list
-	if (convert_add_num(argc, argv, stock_a) == -1)
+	if (convert_nb_index(argc, argv, stock_a) == -1)
 	{
 		free_stack(stock_a);
 		write(1, "ERROR", 5);
