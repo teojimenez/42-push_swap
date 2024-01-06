@@ -15,9 +15,20 @@ void ft_lstadd_back(t_node **lst, t_node *new)
         *lst = new;
 }
 
+int	ft_lstsize(t_node *lst)
+{
+	int i;
 
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
 
-t_node	*ft_newnode(int content)
+t_node	*ft_newnode(int content, int index)
 {
 	t_node	*node;
 
@@ -25,6 +36,7 @@ t_node	*ft_newnode(int content)
 	if (!node)
 		return (NULL);
 	node->content = content;
+	node->index = index;
 	node->next = NULL;
 	return (node);
 }

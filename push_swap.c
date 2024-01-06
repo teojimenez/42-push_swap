@@ -57,15 +57,42 @@ int ft_atoi(char *str)
 	return (nb * sig);
 }
 
-void	ft_index(int argc, t_node **lst)
+void	ft_index(t_node **lst)
 {
-	
+	t_node	*l;
+	int		i;
+	int		size;
+	int		step;
+	int		temp;
+
+	l = *lst;
+	i = 0;
+	size = ft_lstsize(l);
+	step = 0;
+	while (step < size)
+	{
+		while(i < size - 1)
+		{
+			if(l->content > l->next->content)
+			{
+				temp = l->index;
+				l->index = l->next->index;
+				l->next->index = temp;
+			}
+			l = l->next;
+			i++;
+		}
+		l = *lst;
+		i = 0;
+		step++;
+	}
 }
 
 int	convert_nb_index(int argc, char **argv, t_node **lst)
 {
 	int i = 1;
 	int nb = 0;
+	int index = 0;
 
 	while (i < argc)
 	{
@@ -76,7 +103,7 @@ int	convert_nb_index(int argc, char **argv, t_node **lst)
 			nb = ft_atoi(argv[i]);
 			t_node *new;
 			
-			new = ft_newnode(nb);
+			new = ft_newnode(nb, index);
 			if(!new)
 			{
 				free_stack(lst);	
@@ -84,10 +111,10 @@ int	convert_nb_index(int argc, char **argv, t_node **lst)
 			}
 			ft_lstadd_back(lst, new);
 		}
+		index++;
         i++;
 	}
-	ft_index(argc, lst);
-
+	ft_index(lst);
 	return (0);
 }
 
