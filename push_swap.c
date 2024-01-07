@@ -65,7 +65,8 @@ void	ft_index(t_node **lst)
 	int		step;
 	int		temp;
 
-	l = *lst;
+	t_node **cpy = lst;
+	l = *cpy;
 	i = 0;
 	size = ft_lstsize(l);
 	step = 0;
@@ -78,15 +79,20 @@ void	ft_index(t_node **lst)
 				temp = l->index;
 				l->index = l->next->index;
 				l->next->index = temp;
+
+				temp = l->content;
+				l->content = l->next->content;
+				l->next->content = temp;
 			}
 			l = l->next;
 			i++;
 		}
-		l = *lst;
+		l = *cpy;
 		i = 0;
 		step++;
 	}
 }
+
 
 int	convert_nb_index(int argc, char **argv, t_node **lst)
 {
