@@ -29,7 +29,10 @@ int look_error(char *str)
 			i++;
 		}
 		if(regex[i] == '\0' && regex[i - 1] != *str)
+		{
+			write(1, "ERROR", 5);
 			return (-1);
+		}
 		str++;
 	}
 	return (0);
@@ -57,49 +60,77 @@ int ft_atoi(char *str)
 	return (nb * sig);
 }
 
+int ft_min(t_node *current, int flag, int last)
+{
+    int min;
+
+    min = current->content;
+    while(current)
+    {
+        if (flag == 1)
+        {
+            if (current->content < min)
+                min = current->content;
+        }
+        else
+        {
+            if (current->content < min && current->content > last)
+                min = current->content;
+        }
+        current = current->next;
+    }
+    return (min);
+}
+
 void	ft_index(t_node **lst)
 {
 	t_node	*l;
+	t_node	*l2;
 	int		i;
 	int		size;
 	int		step;
-	int		temp;
 
-	t_node **cpy = lst;
-	l = *cpy;
 	i = 0;
+	l = *lst;
+	l2 = *lst;
+	int min = ft_min(l, 1, 0);
+	while(l->content != min)
+		l = l->next;
+	l->index = i++;
+	l = *lst;
 	size = ft_lstsize(l);
 	step = 0;
-	while (step < size)
-	{
-		while(i < size - 1)
-		{
-			if(l->content > l->next->content)
-			{
-				temp = l->index;
-				l->index = l->next->index;
-				l->next->index = temp;
 
-				temp = l->content;
-				l->content = l->next->content;
-				l->next->content = temp;
+
+	while (step < size - 1)
+	{
+		while(i < size)
+		{
+			l2 = *lst;
+			if(ft_min(l2, 0, min) == l->content)
+			{
+				l->index = i++;
+				min = l->content;
+				break;
 			}
 			l = l->next;
-			i++;
 		}
-		l = *cpy;
-		i = 0;
+		l = *lst;
 		step++;
 	}
 }
 
 
-int	convert_nb_index(int argc, char **argv, t_node **lst)
+int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
 {
 	int i = 1;
+	if	(flag == 1)
+	{
+		argc++;
+		i = 0;
+	}
 	int nb = 0;
 	int index = 0;
-
 	while (i < argc)
 	{
         if (look_error(argv[i]) == -1)
@@ -124,16 +155,19 @@ int	convert_nb_index(int argc, char **argv, t_node **lst)
 	return (0);
 }
 
+
 int	main(int argc, char **argv)
 {
 	t_node **stock_a;
-
+	int flag = 0;
+	if(argc == 2 && char_exists(argv[1], ' '))
+	{
+		argv = ft_split(argv[1], ' ');
+		flag = 1;
+	}
 	stock_a = (t_node **)malloc(sizeof(t_node *)); //porque no t_node;
 	//put the numbers in a list
-	if (convert_nb_index(argc, argv, stock_a) == -1)
-	{
+	if (convert_nb_index(argc, argv, stock_a, flag) == -1)
 		free_stack(stock_a);
-		write(1, "ERROR", 5);
-	}
 	return (0);
 }
