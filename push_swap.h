@@ -26,10 +26,13 @@ typedef struct s_node
 	// struct s_node	*after;
 	struct s_node	*next;
 } t_node;
-
+	
 //functions
 void	ft_lstadd_back(t_node **lst, t_node *new);
-t_node	*ft_newnode(int content);
+t_node	*ft_newnode(int content, int index);
+int		ft_lstsize(t_node *lst);
 void    free_stack(t_node **list);
+int     char_exists(const char *str, int c);
+char	**ft_split(char const *s, char c);
 
 #endif

@@ -15,6 +15,7 @@ NAME = push_swap
 FLAGS = -Wall -Wextra -Werror -g
 
 SRC = 	push_swap.c push_swap_utils.c lst_utils.c \
+		push_swap_split.c
 		
 
 OBJECTS = $(SRC:.c=.o)
@@ -26,7 +27,6 @@ CC = gcc
 
 $(NAME):	${OBJECTS}
 		${CC} ${FLAGS} -o ${NAME} ${OBJECTS}
-
 all: $(NAME)
 
 clean:
@@ -36,4 +36,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: 	all clean fclean re
+.PHONY: 	all clean fclean reº
