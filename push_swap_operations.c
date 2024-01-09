@@ -6,7 +6,7 @@
 /*   By: teojimen <teojimen@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:29:36 by teojimen          #+#    #+#             */
-/*   Updated: 2024/01/08 17:29:36 by teojimen         ###   ########.fr       */
+/*   Updated: 2024/01/09 00:39:33 by teojimene        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*Intercambia los dos primeros elementos del stack. No hace nada si
 hay uno o menos elementos.*/
-void    ft_sa_sb(t_node **head)
+void    first_two_change(t_node **head)
 {
     t_node  *first;
     t_node  *second;
@@ -30,9 +30,9 @@ void    ft_sa_sb(t_node **head)
     first ->next = temp;
 }
 
-/*Toma el primer elemento del stack b y lo pone el primero en el stack
-a. No hace nada si b está vacío.(pa_push_a)*/
-void    pa_push_a_pb_push_b(t_node **head_a, t_node **head_b)
+/*Toma el primer elemento del stack 1 y lo pone el primero en el stack
+2. No hace nada si 2 está vacío.(pa_push_a)*/
+void    first_push(t_node **head_a, t_node **head_b)
 {
     if(!head_a)
         return(0);
@@ -49,7 +49,9 @@ void    pa_push_a_pb_push_b(t_node **head_a, t_node **head_b)
     head_b = &b_second;
 }
 
-void    rra_rotate_a_rrb_rotate_b(t_node **head_a)
+/*Desplaza hacia abajo todos los elementos del stack 1 una
+posición, de forma que el último elemento se convierte en el primero*/
+void    rotate_down(t_node **head_a)
 {
     t_node *current;
     t_node *head;
@@ -65,7 +67,9 @@ void    rra_rotate_a_rrb_rotate_b(t_node **head_a)
     head_a = &temp;
 }
 
-void ra_rotate_a_rb_rotate_b(t_node **head_a)
+/*Desplaza hacia arriba todos los elementos del stack 1 una posición,
+de forma que el primer elemento se convierte en el último.*/
+void rotate_up(t_node **head_a)
 {
     t_node *current;
     t_node *head;
