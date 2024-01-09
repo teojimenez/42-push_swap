@@ -120,6 +120,17 @@ void	ft_index(t_node **lst)
 	}
 }
 
+int is_sorted(t_node **head_a)
+{
+	t_node *current;
+	current = *head_a;
+
+	while(current->next->next && current->next < current ->next->next)
+		current = current->next;
+	if(!current->next->next)
+		return (0);
+	return(-1);
+}
 
 int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
 {
@@ -155,6 +166,24 @@ int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
 	return (0);
 }
 
+void sort_menu(t_node **head_a)
+{
+	int size;
+	t_node *current;
+
+	current = *head_a;
+	size = ft_lstsize(current);
+	if(size == 2)
+		//sa
+	else if(size == 3)
+		//ftn3
+	else if(size == 4)
+		//ftn4
+	else if(size == 5)
+		//ftn4
+	else
+		//mas de 6
+}
 
 int	main(int argc, char **argv)
 {
@@ -168,6 +197,8 @@ int	main(int argc, char **argv)
 	stock_a = (t_node **)malloc(sizeof(t_node *)); //porque no t_node;
 	//put the numbers in a list
 	if (convert_nb_index(argc, argv, stock_a, flag) == -1)
-		free_stack(stock_a);
-	return (0);
+		return (free_stack(stock_a), 0);
+	if(is_sorted(stock_a) == -1)
+		sort_menu(stock_a);
+	return (0); 
 }

@@ -22,7 +22,7 @@ void    first_two_change(t_node **head)
 
     first = *head;
     if(ft_lstsize(first) < 2)
-        return (0);
+        return ;
     second = *head;
     second = second->next;
     temp = second->next;
@@ -35,7 +35,7 @@ void    first_two_change(t_node **head)
 void    first_push(t_node **head_a, t_node **head_b)
 {
     if(!head_a)
-        return(0);
+        return ;
     t_node *b_first;
     t_node *b_second;
     
