@@ -60,65 +60,35 @@ int ft_atoi(char *str)
 	return (nb * sig);
 }
 
-int ft_min(t_node *current, int flag, int last)
-{
-    int min;
+void ft_index(t_node **head) {
+    int index = 0;
+    int min = 0;
+    int max = 0;
 
-    min = current->content;
-    while(current)
-    {
-        if (flag == 1)
-        {
-            if (current->content < min)
-                min = current->content;
+    // Encontrar el rango de contenidos
+    t_node *current = *head;
+    while (current) {
+        if (current->content < min) {
+            min = current->content;
         }
-        else
-        {
-            if (current->content < min && current->content > last)
-                min = current->content;
+        if (current->content > max) {
+            max = current->content;
         }
         current = current->next;
     }
-    return (min);
+
+    // Asignar índices en orden ascendente
+    for (int i = min; i <= max; i++) {
+        current = *head;
+        while (current) {
+            if (current->index == -1 && current->content == i) {
+                current->index = index++;
+            }
+            current = current->next;
+        }
+    }
 }
 
-void	ft_index(t_node **lst)
-{
-	t_node	*l;
-	t_node	*l2;
-	int		i;
-	int		size;
-	int		step;
-
-	i = 0;
-	l = *lst;
-	l2 = *lst;
-	int min = ft_min(l, 1, 0);
-	while(l->content != min)
-		l = l->next;
-	l->index = i++;
-	l = *lst;
-	size = ft_lstsize(l);
-	step = 0;
-
-
-	while (step < size - 1)
-	{
-		while(i < size)
-		{
-			l2 = *lst;
-			if(ft_min(l2, 0, min) == l->content)
-			{
-				l->index = i++;
-				min = l->content;
-				break;
-			}
-			l = l->next;
-		}
-		l = *lst;
-		step++;
-	}
-}
 
 int is_sorted(t_node **head_a)
 {
@@ -127,7 +97,7 @@ int is_sorted(t_node **head_a)
 
 	while(current->next->next && current->next < current ->next->next)
 		current = current->next;
-	if(!current->next->next)
+	if(current->next->next)
 		return (0);
 	return(-1);
 }
@@ -151,7 +121,7 @@ int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
 			nb = ft_atoi(argv[i]);
 			t_node *new;
 			
-			new = ft_newnode(nb, index);
+			new = ft_newnode(nb);
 			if(!new)
 			{
 				free_stack(lst);	
@@ -174,14 +144,14 @@ void sort_menu(t_node **head_a)
 	current = *head_a;
 	size = ft_lstsize(current);
 	if(size == 2)
-		//sa
+		sa_sb(head_a, 1);
 	else if(size == 3)
-		//ftn3
-	else if(size == 4)
+		size3(head_a);
+	// else if(size == 4)
 		//ftn4
-	else if(size == 5)
+	// else if(size == 5)
 		//ftn4
-	else
+	// else
 		//mas de 6
 }
 
@@ -200,5 +170,6 @@ int	main(int argc, char **argv)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
 		sort_menu(stock_a);
+	free_stack(stock_a);
 	return (0); 
 }

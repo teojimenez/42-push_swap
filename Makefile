@@ -16,7 +16,8 @@ FLAGS = -Wall -Wextra -Werror -g
 
 SRC = 	push_swap.c push_swap_utils.c lst_utils.c \
 		push_swap_split.c push_swap_operations.c \
-		push_swap_moves.c push_swap_moves2.c
+		push_swap_moves.c push_swap_moves2.c \
+		push_swap_specific_moves.c
 		
 
 OBJECTS = $(SRC:.c=.o)

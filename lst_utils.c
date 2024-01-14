@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teojimen <teojimen@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/10 11:08:52 by teojimen          #+#    #+#             */
+/*   Updated: 2024/01/10 11:08:52 by teojimen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void ft_lstadd_back(t_node **lst, t_node *new)
@@ -28,7 +40,7 @@ int	ft_lstsize(t_node *lst)
 	return (i);
 }
 
-t_node	*ft_newnode(int content, int index)
+t_node	*ft_newnode(int content)
 {
 	t_node	*node;
 
@@ -36,7 +48,7 @@ t_node	*ft_newnode(int content, int index)
 	if (!node)
 		return (NULL);
 	node->content = content;
-	node->index = index;
+    node->index = -1;
 	node->next = NULL;
 	return (node);
 }

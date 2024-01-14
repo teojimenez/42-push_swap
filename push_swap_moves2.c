@@ -16,14 +16,14 @@ void    rra_rrb(t_node **head, int flag)
 {
     rotate_down(head);
     if (flag == 1)
-        write(1, "rra", 2);
+        write(1, "rra\n", 4);
     else
-        write(1, "rrb", 2);
+        write(1, "rrb\n", 4);
 }
 
 void rrr(t_node **head_a, t_node **head_b)
 {
     rotate_down(head_a);
     rotate_down(head_b);
-    write(1, "rrr", 3);
+    write(1, "rrr\n", 44);
 }
