@@ -147,12 +147,8 @@ void sort_menu(t_node **head_a)
 		sa_sb(head_a, 1);
 	else if(size == 3)
 		size3(head_a);
-	// else if(size == 4)
-		//ftn4
-	// else if(size == 5)
-		//ftn4
-	// else
-		//mas de 6
+	else
+		algorithm(head_a);
 }
 
 int	main(int argc, char **argv)

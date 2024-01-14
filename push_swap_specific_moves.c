@@ -18,14 +18,30 @@ void size3(t_node **head_a)
 
     current = *head_a;
     //case 2 1 3
-    if(current->content > current->next->content && current->content < current->next->next->content && \
-        current->next->content < current->content && current->next->content < current->next->next->content)
+    if(current->index > current->next->index && current->index < current->next->next->index && \
+        current->next->index < current->index && current->next->index < current->next->next->index)
         sa_sb(head_a, 1);
     //case 3 2 1
-    else if(current->content > current->next->content && \
-    current->content > current->next->next->content)
+    else if(current->index > current->next->index && \
+    current->index > current->next->next->index && current->next->index < current->index \
+    && current->next->next->index < current->next->content && current->next->next->index < current->content)
     {
         sa_sb(head_a, 1);
         rra_rrb(head_a, 1);
     }
-}
+    //case 3 1 2
+    else if(current->index > current->next->index && current->index > current->next->next->index \
+    && current->next->next->index > current->next->index)
+        ra_rb(head_a, 1);
+
+    //case 1 3 2
+    else if(current->next->index > current->index && current->next->index > current->next->next->index \
+    && current->index < current->next->next->index)
+    {
+        sa_sb(head_a, 1);
+        ra_rb(head_a, 1);
+    }
+    else
+        rra_rrb(head_a, 1);
+
+}       
