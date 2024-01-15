@@ -22,16 +22,10 @@ typedef struct s_node
 {
 	int		content;
 	int		index;
+	struct s_node	*prev;
 	struct s_node	*next;
 } t_node;
 
-typedef struct s_counting
-{
-	int		content;
-	int		index; //0123456789
-	struct s_counting	*next;
-} t_counting;
-	
 //functions
 void	ft_lstadd_back(t_node **lst, t_node *new);
 t_node	*ft_newnode(int content);

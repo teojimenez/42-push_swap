@@ -132,6 +132,7 @@ int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
 		index++;
         i++;
 	}
+	ft_put_prev(lst);
 	ft_index(lst);
 	return (0);
 }
@@ -147,8 +148,8 @@ void sort_menu(t_node **head_a)
 		sa_sb(head_a, 1);
 	else if(size == 3)
 		size3(head_a);
-	else
-		algorithm(head_a);
+	// else
+	// 	algorithm(head_a);
 }
 
 int	main(int argc, char **argv)

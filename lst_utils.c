@@ -27,6 +27,21 @@ void ft_lstadd_back(t_node **lst, t_node *new)
         *lst = new;
 }
 
+void ft_put_prev(t_node **head_a)
+{
+    t_node *c;
+    t_node *temp;
+
+    c = *head_a;
+    c->prev = NULL;
+    while(c->next)
+    {
+        temp = c;
+        c = c->next;
+        c->prev = temp;
+    }
+}
+
 int	ft_lstsize(t_node *lst)
 {
 	int i;
