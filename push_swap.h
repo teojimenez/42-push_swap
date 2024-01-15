@@ -28,6 +28,7 @@ typedef struct s_node
 
 //functions
 void	ft_lstadd_back(t_node **lst, t_node *new);
+void	ft_put_prev(t_node **head_a);
 t_node	*ft_newnode(int content);
 int		ft_lstsize(t_node *lst);
 void	free_stack(t_node **list);

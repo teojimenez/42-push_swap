@@ -20,33 +20,56 @@ void    first_two_change(t_node **head)
     t_node  *second;
     t_node  *temp;
 
-    first = *head;
     if(ft_lstsize(first) < 2)
         return ;
+    //set posicions
+    first = *head;
     second = *head;
     second = second->next;
+    //next
     temp = second->next;
     second->next = first;
-    first ->next = temp;
+    first->next = temp;
+    //set prev
+    second->prev = NULL;
+    first->prev = *head;
 }
 
 /*Toma el primer elemento del stack 1 y lo pone el primero en el stack
 2. No hace nada si 2 está vacío.(pa_push_a)*/
+// void    first_push(t_node **head_a, t_node **head_b)
+// {
+//     if(!head_a)
+//         return ;
+//     t_node *b_first;
+//     t_node *b_second;
+    
+//     b_second = *head_b;
+//     b_second = b_second->next;
+
+//     b_first = *head_b;
+//     b_first->next = *head_a;
+
+//     head_a = &b_first;
+//     head_b = &b_second;
+// }
 void    first_push(t_node **head_a, t_node **head_b)
 {
     if(!head_a)
         return ;
+    t_node *a_first;
+    t_node *a_second;
     t_node *b_first;
-    t_node *b_second;
-    
-    b_second = *head_b;
-    b_second = b_second->next;
 
+    a_first = *head_a;
     b_first = *head_b;
-    b_first->next = *head_a;
+    a_second = a_first->next;
 
-    head_a = &b_first;
-    head_b = &b_second;
+    a_first->next = b_first;
+    head_a = &a_second;
+    head_b = &a_first;
+    ft_put_prev(head_a);
+    ft_put_prev(head_b);
 }
 
 /*Desplaza hacia abajo todos los elementos del stack 1 una
@@ -65,6 +88,8 @@ void    rotate_down(t_node **head_a)
     current->next = NULL;
     temp->next = head;
     head_a = &temp;
+
+    ft_put_prev(head_a);
 }
 
 /*Desplaza hacia arriba todos los elementos del stack 1 una posición,
@@ -88,4 +113,5 @@ void rotate_up(t_node **head_a)
     current->next = head;
     head->next = NULL;
     head_a = &temp;
+    ft_put_prev(head_a);
 }

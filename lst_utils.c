@@ -29,16 +29,17 @@ void ft_lstadd_back(t_node **lst, t_node *new)
 
 void ft_put_prev(t_node **head_a)
 {
-    t_node *c;
-    t_node *temp;
+    t_node *current = *head_a;
+    t_node *prev = NULL;
 
-    c = *head_a;
-    c->prev = NULL;
-    while(c->next)
+
+    if (*head_a == NULL)
+        return ;
+    while (current != NULL)
     {
-        temp = c;
-        c = c->next;
-        c->prev = temp;
+        current->prev = prev; //set prev al anterior
+        prev = current; //prev es el actual
+        current = current->next;//avanzas
     }
 }
 
