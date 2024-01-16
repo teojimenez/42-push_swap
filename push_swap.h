@@ -50,5 +50,6 @@ void	rotate_down(t_node **head_a);
 void	rotate_up(t_node **head_a);
 
 void size3(t_node **head_a);
+void algorithm(t_node **head_a)
 
 #endif
