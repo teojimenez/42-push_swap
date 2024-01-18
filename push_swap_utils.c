@@ -37,3 +37,12 @@ int     char_exists(const char *str, int c)
 	}
 	return (0);
 }
+
+int tabsize(int *tab)
+{
+    int i = 0;
+
+    while(tab[i])
+      i++;
+    return (i);
+}

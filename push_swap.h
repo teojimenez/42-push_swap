@@ -26,6 +26,14 @@ typedef struct s_node
 	struct s_node	*next;
 } t_node;
 
+typedef struct s_cost
+{
+	int		index;
+	int		cost_up;
+	int		cost_down;
+	struct s_cost	*next;
+} t_cost;
+
 //functions
 void	ft_lstadd_back(t_node **lst, t_node *new);
 void	ft_put_prev(t_node **head_a);
@@ -50,6 +58,8 @@ void	rotate_down(t_node **head_a);
 void	rotate_up(t_node **head_a);
 
 void size3(t_node **head_a);
-void algorithm(t_node **head_a)
+void algorithm(t_node **head_a);
+int tabsize(int *tab);
+t_cost	*ft_newcost(int index, int up, int down);
 
 #endif

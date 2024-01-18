@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap."
 
 void ft_lstadd_back(t_node **lst, t_node *new)
 {
@@ -68,6 +68,20 @@ t_node	*ft_newnode(int content)
 	node->next = NULL;
 	return (node);
 }
+t_cost	*ft_newcost(int index, int up, int down)
+{
+	t_cost	*node;
+
+	node = (t_cost *)malloc(sizeof(t_cost));
+	if (!node)
+		return (NULL);
+    node->index = index;
+    node->cost_up = up;
+    node->cost_down = down;
+	node->next = NULL;
+	return (node);
+}
+
 
 void    free_stack(t_node **list)
 {
