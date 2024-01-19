@@ -36,10 +36,12 @@ typedef struct s_cost
 
 //functions
 void	ft_lstadd_back(t_node **lst, t_node *new);
+void ft_lstadd_back_cost(t_cost **lst, t_cost *new);
 void	ft_put_prev(t_node **head_a);
 t_node	*ft_newnode(int content);
 int		ft_lstsize(t_node *lst);
 void	free_stack(t_node **list);
+void    free_stack_cost(t_cost **list);
 int		char_exists(const char *str, int c);
 char	**ft_split(char const *s, char c);
 
@@ -61,5 +63,7 @@ void size3(t_node **head_a);
 void algorithm(t_node **head_a);
 int tabsize(int *tab);
 t_cost	*ft_newcost(int index, int up, int down);
+void	ft_lstclear_cost(t_cost **lst);
+void	ft_lstdelone_cost(t_cost *lst);
 
 #endif

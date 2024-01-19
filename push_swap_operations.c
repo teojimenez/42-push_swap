@@ -20,10 +20,10 @@ void    first_two_change(t_node **head)
     t_node  *second;
     t_node  *temp;
 
+    first = *head;
     if(ft_lstsize(first) < 2)
         return ;
     //set posicions
-    first = *head;
     second = *head;
     second = second->next;
     //next
@@ -79,6 +79,7 @@ void    rotate_down(t_node **head_a)
     t_node *current;
     t_node *head;
     t_node *temp;
+
     current = *head_a;
     head = *head_a;
 

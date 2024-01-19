@@ -41,7 +41,7 @@ int* ft_fractions(t_node **head_a) {
         result[j] = chunk_size;
     }
     result[nb_size] = '\0';
-    return result;
+    return (result);
 }
 
 int down_in_one_index(t_node **head_a, int index)
@@ -50,7 +50,7 @@ int down_in_one_index(t_node **head_a, int index)
   int count = 0;
   while(current)
   {
-    if (current->index = index)
+    if (current->index == index)
     {
         while(current)
         {
@@ -71,7 +71,7 @@ int up_in_one_index(t_node **head_a, int index)
   while(current)
   {
     if (current->index == index)
-        return (count + 1);
+        return (count);
     current = current->next;
     count++;
   }
@@ -94,7 +94,7 @@ int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
   
   while(current_a)
   {
-    if (current_a->index <= rango_min && current_a->index >= tab[tab_pos])
+    if (current_a->index >= rango_min && current_a->index <= tab[tab_pos])
     {
       up = up_in_one_index(head_a, current_a->index);
       down = down_in_one_index(head_a, current_a->index);
@@ -104,17 +104,82 @@ int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
       new = ft_newcost(current_a->index, up, down);
       if(!new)
         {
-            free_stack(head_costs);	
+            free_stack_cost(head_costs);
             return(-1);
         }
-        ft_lstadd_back(head_costs, new);
+        ft_lstadd_back_cost(head_costs, new);
     }
-    current_a ->next;
+    current_a = current_a->next;
   }
   return(0);
 }
 
-int every_chunk(int *tab, int tab_pos, t_node **head_a, t_node **head_b)
+int up_to_push(int *up, t_cost **costs)
+{
+  t_cost *current_cost = *costs;
+  
+  *up = current_cost->cost_up;
+  while(current_cost)
+  {
+    if (current_cost->cost_up < *up)
+    {
+      *up = current_cost->cost_up;
+    }
+    current_cost = current_cost->next;
+  }
+  current_cost = *costs;
+  while(current_cost)
+  {
+    if (current_cost->cost_up == *up)
+      return (current_cost->index);
+    current_cost = current_cost->next;
+  }
+  return (0);
+}
+
+int down_to_push(int *down, t_cost **costs)
+{
+  t_cost *current_cost = *costs;
+  
+  *down = current_cost->cost_down;
+  while(current_cost)
+  {
+    if (current_cost->cost_down < *down)
+    {
+      *down = current_cost->cost_down;
+    }
+    current_cost = current_cost->next;
+  }
+  current_cost = *costs;
+  while(current_cost)
+  {
+    if (current_cost->cost_down == *down)
+      return (current_cost->index);
+    current_cost = current_cost->next;
+  }
+  return(0);
+}
+
+void push_less_cost(t_cost **costs, t_node **head_a, t_node **head_b)
+{
+  int up;
+  int down;
+  int i = 0;
+  int index_up = up_to_push(&up, costs);
+  int index_down = down_to_push(&down, costs);
+  if (index_up >= index_down)//hacer el down
+  {
+    while(down-- > i)
+      rra_rrb(head_a, 1);
+  }
+  else
+  {
+    while(up-- > i)
+      ra_rb(head_a, 1);
+  }
+  pa_pb(head_a, head_b , 0);
+}
+int every_chunk (int *tab, int tab_pos, t_node **head_a, t_node **head_b)
 {
     //crear una lista con los precios
     t_cost **costs;
@@ -126,14 +191,11 @@ int every_chunk(int *tab, int tab_pos, t_node **head_a, t_node **head_b)
     int count = 0;
     while(count != rango)
     {
-        content_in_costs(rango, tab_pos, costs, head_a);
+        content_in_costs(tab, tab_pos, costs, head_a);
         
-        push_less_cost();//->ahi dentro tener get_max y get_min de todos;
-        //liberar toda la lista de costs
-        
+        push_less_cost(costs, head_a, head_b);//->ahi dentro tener get_max y get_min de todos;
+        ft_lstclear_cost(costs); //delete content costs
         count++;
-
-
     }
     //para cada valor ir buscando si encuentra ->
     //uno de los numeros en los rangos
@@ -154,16 +216,17 @@ int every_chunk(int *tab, int tab_pos, t_node **head_a, t_node **head_b)
     //     return(-1);
     // }
     // ft_lstadd_back(costs, new);
+    return(0);
 }
 
 void    sort_every_chunk(int *tab, t_node **head_a, t_node **head_b)
 {
     int i = -1;
-    int tab_size = tabsize(tab);
+    // int tab_size = tabsize(tab);
     while(tab[++i])
     {
-        if (every_chunk(tab, i, head_a, head_b) == -1);
-          return (NULL); //despues hacer que salga si falla
+        if (every_chunk(tab, i, head_a, head_b) == -1)
+          return ; //despues hacer que salga si falla
     }
 
 }
@@ -176,7 +239,7 @@ void algorithm(t_node **head_a)
     tab = ft_fractions(head_a);
     stock_b = (t_node **)malloc(sizeof(t_node *));
     if (!stock_b)
-        //algo
+        return ; //que pete
     sort_every_chunk(tab, head_a, stock_b);
     free(tab);
 }

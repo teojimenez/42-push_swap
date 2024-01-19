@@ -10,11 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap."
+#include "push_swap.h"
 
 void ft_lstadd_back(t_node **lst, t_node *new)
 {
     t_node *p;
+
+    if (*lst)
+    {
+        p = *lst;
+        while (p->next)
+            p = p->next;
+        p->next = new;
+    }
+    else
+        *lst = new;
+}
+
+void ft_lstadd_back_cost(t_cost **lst, t_cost *new)
+{
+    t_cost *p;
 
     if (*lst)
     {
@@ -96,4 +111,37 @@ void    free_stack(t_node **list)
         free(temp);
     }
     free(list);
+}
+void    free_stack_cost(t_cost **list)
+{
+    t_cost *temp;
+    t_cost *node;
+
+    node = *list;
+    while(node)
+    {
+        temp = node;
+        node = node->next;
+        free(temp);
+    }
+    free(list);
+}
+
+void	ft_lstclear_cost(t_cost **lst)
+{
+	t_cost	*temp;
+
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		ft_lstdelone_cost(*lst);
+		*lst = temp;
+	}
+}
+
+void	ft_lstdelone_cost(t_cost *lst)
+{
+	if (!lst)
+		return ;
+	free(lst);
 }

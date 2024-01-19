@@ -96,11 +96,12 @@ int is_sorted(t_node **head_a)
 	t_node *current;
 	current = *head_a;
 
-	while(current->next->next && current->next < current ->next->next)
+	while (current->next->next && current->next < current ->next->next)
 		current = current->next;
-	if(current->next->next)
+
+	if (current->next->next)
 		return (0);
-	return(-1);
+	return (-1);
 }
 
 int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
