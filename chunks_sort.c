@@ -44,7 +44,7 @@ int* ft_fractions(t_node **head_a) {
     return result;
 }
 
-int min_in_one_index(t_node **head_a, int index)
+int down_in_one_index(t_node **head_a, int index)
 {
   t_node *current = *head_a;
   int count = 0;
@@ -57,24 +57,21 @@ int min_in_one_index(t_node **head_a, int index)
           count++;
           current = current->next;
         }
-        return(count + 1); //mirar si hace falta sumar uno o restarlo!!!1
+        return(count);
     }
     current = current->next;
-    count++;
   }
   return (0); //falta comprovar si suma uno de mas !!!
 }
 
-int max_in_one_index(t_node **head_a, int index)
+int up_in_one_index(t_node **head_a, int index)
 {
   t_node *current = *head_a;
   int count = 0;
   while(current)
   {
-    if (current->index = index)
-    {
-        return (count + 1); //falta comprovar si suma uno de mas !!!
-    }
+    if (current->index == index)
+        return (count + 1);
     current = current->next;
     count++;
   }
@@ -88,8 +85,8 @@ int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
   //necesito el numero maximo del chunk y el menor tambien
   t_node *current_a = *head_a;
   int rango_min;
-  int max;
-  int min;
+  int up;
+  int down;
 
   rango_min = 0;
   if (tab_pos != 0)
@@ -99,9 +96,18 @@ int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
   {
     if (current_a->index <= rango_min && current_a->index >= tab[tab_pos])
     {
-      max = max_in_one_index(head_a, current_a->index);
-      min = min_in_one_index(head_a, current_a->index);
-      //encontrar el altura hacia arriba y altura hacia abajo
+      up = up_in_one_index(head_a, current_a->index);
+      down = down_in_one_index(head_a, current_a->index);
+      
+      t_cost *new;
+
+      new = ft_newcost(current_a->index, up, down);
+      if(!new)
+        {
+            free_stack(head_costs);	
+            return(-1);
+        }
+        ft_lstadd_back(head_costs, new);
     }
     current_a ->next;
   }
@@ -121,6 +127,7 @@ int every_chunk(int *tab, int tab_pos, t_node **head_a, t_node **head_b)
     while(count != rango)
     {
         content_in_costs(rango, tab_pos, costs, head_a);
+        
         push_less_cost();//->ahi dentro tener get_max y get_min de todos;
         //liberar toda la lista de costs
         
