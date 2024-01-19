@@ -44,7 +44,71 @@ int* ft_fractions(t_node **head_a) {
     return result;
 }
 
-int every_chunk(int tab_size, int tab_pos, t_node **head_a, t_node **head_b)
+int min_in_one_index(t_node **head_a, int index)
+{
+  t_node *current = *head_a;
+  int count = 0;
+  while(current)
+  {
+    if (current->index = index)
+    {
+        while(current)
+        {
+          count++;
+          current = current->next;
+        }
+        return(count + 1); //mirar si hace falta sumar uno o restarlo!!!1
+    }
+    current = current->next;
+    count++;
+  }
+  return (0); //falta comprovar si suma uno de mas !!!
+}
+
+int max_in_one_index(t_node **head_a, int index)
+{
+  t_node *current = *head_a;
+  int count = 0;
+  while(current)
+  {
+    if (current->index = index)
+    {
+        return (count + 1); //falta comprovar si suma uno de mas !!!
+    }
+    current = current->next;
+    count++;
+  }
+  return (0);
+}
+
+
+int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
+{
+  //current_a es el primer nodo de list_a
+  //necesito el numero maximo del chunk y el menor tambien
+  t_node *current_a = *head_a;
+  int rango_min;
+  int max;
+  int min;
+
+  rango_min = 0;
+  if (tab_pos != 0)
+    rango_min = tab[tab_pos - 1];
+  
+  while(current_a)
+  {
+    if (current_a->index <= rango_min && current_a->index >= tab[tab_pos])
+    {
+      max = max_in_one_index(head_a, current_a->index);
+      min = min_in_one_index(head_a, current_a->index);
+      //encontrar el altura hacia arriba y altura hacia abajo
+    }
+    current_a ->next;
+  }
+  return(0);
+}
+
+int every_chunk(int *tab, int tab_pos, t_node **head_a, t_node **head_b)
 {
     //crear una lista con los precios
     t_cost **costs;
@@ -52,6 +116,18 @@ int every_chunk(int tab_size, int tab_pos, t_node **head_a, t_node **head_b)
     if(!costs)
         return (-1);
 
+    int rango = tab[tab_pos];
+    int count = 0;
+    while(count != rango)
+    {
+        content_in_costs(rango, tab_pos, costs, head_a);
+        push_less_cost();//->ahi dentro tener get_max y get_min de todos;
+        //liberar toda la lista de costs
+        
+        count++;
+
+
+    }
     //para cada valor ir buscando si encuentra ->
     //uno de los numeros en los rangos
     // encontrar el mas barato y entonces
@@ -79,8 +155,8 @@ void    sort_every_chunk(int *tab, t_node **head_a, t_node **head_b)
     int tab_size = tabsize(tab);
     while(tab[++i])
     {
-        every_chunk(tab_size, i, head_a, head_b);
-        return (NULL); //despues hacer que salga si falla
+        if (every_chunk(tab, i, head_a, head_b) == -1);
+          return (NULL); //despues hacer que salga si falla
     }
 
 }

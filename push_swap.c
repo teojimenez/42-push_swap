@@ -61,7 +61,7 @@ int ft_atoi(char *str)
 }
 
 void ft_index(t_node **head) {
-    int index = 0;
+    int index = 1;
     int min = 0;
     int max = 0;
 
@@ -77,8 +77,9 @@ void ft_index(t_node **head) {
         current = current->next;
     }
 
-    // Asignar índices en orden ascendente
-    for (int i = min; i <= max; i++) {
+	int i = min;
+	while(i <= max)
+	{		
         current = *head;
         while (current) {
             if (current->index == -1 && current->content == i) {
@@ -86,9 +87,9 @@ void ft_index(t_node **head) {
             }
             current = current->next;
         }
-    }
+		i++;
+	}
 }
-
 
 int is_sorted(t_node **head_a)
 {
