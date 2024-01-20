@@ -66,8 +66,8 @@ void    first_push(t_node **head_a, t_node **head_b)
     a_second = a_first->next;
 
     a_first->next = b_first;
-    head_a = &a_second;
-    head_b = &a_first;
+    *head_a = a_second; //change
+    *head_b = a_first; //change
     ft_put_prev(head_a);
     ft_put_prev(head_b);
 }
@@ -88,7 +88,7 @@ void    rotate_down(t_node **head_a)
     temp = current->next;
     current->next = NULL;
     temp->next = head;
-    head_a = &temp;
+    *head_a = temp; //change
 
     ft_put_prev(head_a);
 }
@@ -113,6 +113,6 @@ void rotate_up(t_node **head_a)
 
     current->next = head;
     head->next = NULL;
-    head_a = &temp;
+    *head_a = temp; //change
     ft_put_prev(head_a);
 }

@@ -34,12 +34,12 @@ void    pa_pb(t_node **head_a, t_node **head_b, int flag)
 {
     if(flag == 1)
     {
-        first_push(head_a, head_b);
+        first_push(head_b, head_a);
         write(1, "pa\n", 3);
     }
     else
     {
-        first_push(head_b, head_a);
+        first_push(head_a, head_b);
         write(1, "pb\n", 3);
     }
 }
