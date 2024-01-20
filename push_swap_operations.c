@@ -83,7 +83,7 @@ void    rotate_down(t_node **head_a)
     current = *head_a;
     head = *head_a;
 
-    while(current->next->next)
+    while(current->next->next) //
         current = current->next;
     temp = current->next;
     current->next = NULL;

@@ -78,6 +78,15 @@ int up_in_one_index(t_node **head_a, int index)
   return (0);
 }
 
+int get_rango_min(int *tab, int tab_pos)
+{
+  int all;
+
+  all = 0;
+  while(tab_pos >= 0)
+    all += tab[--tab_pos];
+  return (all);
+}
 
 int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
 {
@@ -90,11 +99,14 @@ int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
 
   rango_min = 0;
   if (tab_pos != 0)
-    rango_min = tab[tab_pos - 1];
+  {
+    rango_min = get_rango_min(tab, tab_pos);
+    // rango_min = tab[tab_pos - 1];
+  }
   
   while(current_a)
   {
-    if (current_a->index >= rango_min && current_a->index <= tab[tab_pos])
+    if (current_a->index >= rango_min && current_a->index <= (rango_min + tab[tab_pos]))
     {
       up = up_in_one_index(head_a, current_a->index);
       down = down_in_one_index(head_a, current_a->index);
@@ -164,18 +176,32 @@ void push_less_cost(t_cost **costs, t_node **head_a, t_node **head_b)
 {
   int up;
   int down;
-  int i = 0;
   int index_up = up_to_push(&up, costs);
   int index_down = down_to_push(&down, costs);
-  if (index_up >= index_down)//hacer el down
+  index_up = 0;
+  index_down = 0;
+  if(ft_lstsize(*head_a) > 1)
   {
-    while(down-- > i)
-      rra_rrb(head_a, 1);
-  }
-  else
-  {
-    while(up-- > i)
-      ra_rb(head_a, 1);
+    if (up >= down)//hacer el down
+    {
+      while(down-- > 0)
+        rra_rrb(head_a, 1); //down
+    }
+    else
+    {
+      while(up-- > 0)
+        ra_rb(head_a, 1); //up
+    }
+    // if (index_up >= index_down)//hacer el down
+    // {
+    //   while(down-- > i)
+    //     rra_rrb(head_a, 1);
+    // }
+    // else
+    // {
+    //   while(up-- > i)
+    //     ra_rb(head_a, 1);
+    // }
   }
   pa_pb(head_a, head_b , 0);
 }
@@ -216,6 +242,7 @@ int every_chunk (int *tab, int tab_pos, t_node **head_a, t_node **head_b)
     //     return(-1);
     // }
     // ft_lstadd_back(costs, new);
+    free_stack_cost(costs);
     return(0);
 }
 
@@ -231,6 +258,57 @@ void    sort_every_chunk(int *tab, t_node **head_a, t_node **head_b)
 
 }
 
+void push_single_cheaper(t_node **head_a, t_node **head_b, int up, int down)
+{
+  if (ft_lstsize(*head_b) > 1)
+  {
+    if(up >= down)
+    {
+      while(down-- > 0)
+        rra_rrb(head_b, 1); //down
+    }
+    else
+    {
+      while(up-- > 0)
+        ra_rb(head_b, 1); //up
+    }
+  }
+  pa_pb(head_a, head_b, 1);
+}
+
+void  search_b_number(t_node **head_a, t_node **head_b, int nb_index)
+{
+  t_node *current_b;
+  int count_up = 0;
+  int count_down = 0;
+  current_b = *head_b;
+  while(current_b)
+  {
+    if (current_b->index == nb_index)
+    {
+      while(current_b)
+      {
+        count_down++;
+        current_b = current_b->next;
+      }
+      break;
+    }
+    count_up++;
+    current_b = current_b->next;
+  }
+  push_single_cheaper(head_a, head_b, count_up, count_down);
+}
+void  sort_every_thing(t_node **head_a, t_node **head_b)
+{
+  int size;
+  size = ft_lstsize(*head_b);
+  while(size > 0)
+  {
+    search_b_number(head_a, head_b, size);
+    size--;
+    }
+}
+
 
 void algorithm(t_node **head_a)
 {
@@ -241,5 +319,6 @@ void algorithm(t_node **head_a)
     if (!stock_b)
         return ; //que pete
     sort_every_chunk(tab, head_a, stock_b);
+    sort_every_thing(head_a, stock_b);
     free(tab);
 }
