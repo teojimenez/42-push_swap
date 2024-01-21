@@ -194,13 +194,16 @@ void sort_menu(t_node **head_a)
 		algorithm(head_a);
 }
 #include <stdio.h>
+
 void print_stack(t_node **stack) 
-{ t_node **temp; temp = stack; 
-while (*temp) 
-{ 
-	printf("value -> %d\n", (*temp)->content); 
-	*temp = (*temp)->next; 
-} 
+{
+	t_node *temp; 
+	temp = *stack; 
+	while (temp) 
+	{ 
+		printf("value -> %d\n", temp->content); 
+		temp = temp->next;
+	}
 }
 
 
@@ -213,8 +216,7 @@ int	main(int argc, char **argv)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
 		sort_menu(stock_a);
-	print_stack(stock_a);
+	// print_stack(stock_a);
 	free_stack(stock_a);
-
 	return (0); 
 }

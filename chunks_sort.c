@@ -126,47 +126,47 @@ int content_in_costs(int* tab, int tab_pos, t_cost **head_costs, t_node**head_a)
   return(0);
 }
 
-int up_to_push(int *up, t_cost **costs)
+int up_to_push(t_cost **costs)
 {
   t_cost *current_cost = *costs;
   
-  *up = current_cost->cost_up;
+  int up = current_cost->cost_up;
   while(current_cost)
   {
-    if (current_cost->cost_up < *up)
+    if (current_cost->cost_up < up)
     {
-      *up = current_cost->cost_up;
+      up = current_cost->cost_up;
     }
     current_cost = current_cost->next;
   }
   current_cost = *costs;
   while(current_cost)
   {
-    if (current_cost->cost_up == *up)
-      return (current_cost->index);
+    if (current_cost->cost_up == up)
+      return (up);
     current_cost = current_cost->next;
   }
   return (0);
 }
 
-int down_to_push(int *down, t_cost **costs)
+int down_to_push(t_cost **costs)
 {
   t_cost *current_cost = *costs;
   
-  *down = current_cost->cost_down;
+  int down = current_cost->cost_down;
   while(current_cost)
   {
-    if (current_cost->cost_down < *down)
+    if (current_cost->cost_down < down)
     {
-      *down = current_cost->cost_down;
+      down = current_cost->cost_down;
     }
     current_cost = current_cost->next;
   }
   current_cost = *costs;
   while(current_cost)
   {
-    if (current_cost->cost_down == *down)
-      return (current_cost->index);
+    if (current_cost->cost_down == down)
+      return (down);
     current_cost = current_cost->next;
   }
   return(0);
@@ -174,12 +174,8 @@ int down_to_push(int *down, t_cost **costs)
 
 void push_less_cost(t_cost **costs, t_node **head_a, t_node **head_b)
 {
-  int up;
-  int down;
-  int index_up = up_to_push(&up, costs);
-  int index_down = down_to_push(&down, costs);
-  index_up = 0;
-  index_down = 0;
+  int up = up_to_push(costs);
+  int down = down_to_push(costs);
   if(ft_lstsize(*head_a) > 1)
   {
     if (up >= down)//hacer el down
@@ -192,16 +188,6 @@ void push_less_cost(t_cost **costs, t_node **head_a, t_node **head_b)
       while(up-- > 0)
         ra_rb(head_a, 1); //up
     }
-    // if (index_up >= index_down)//hacer el down
-    // {
-    //   while(down-- > i)
-    //     rra_rrb(head_a, 1);
-    // }
-    // else
-    // {
-    //   while(up-- > i)
-    //     ra_rb(head_a, 1);
-    // }
   }
   pa_pb(head_a, head_b , 0);
 }
@@ -223,25 +209,6 @@ int every_chunk (int *tab, int tab_pos, t_node **head_a, t_node **head_b)
         ft_lstclear_cost(costs); //delete content costs
         count++;
     }
-    //para cada valor ir buscando si encuentra ->
-    //uno de los numeros en los rangos
-    // encontrar el mas barato y entonces
-    // els mas barato hacia arriba y hace abajo
-    //hacer variable que extrae el mas barato abajo (funcion)
-    //hacer variable que extrae el mas barato arriba(funcion)
-    //hacer push
-    //despues de cada push, se borra toda la lista;
-
-    //para añadir a la lista una vez se sepa el down y up del node;
-    // t_cost *new;
-			
-	// new = ft_newcost(index, down, up);
-	// if(!new)
-    // {
-    //     free_stack(costs);	
-    //     return(-1);
-    // }
-    // ft_lstadd_back(costs, new);
     free_stack_cost(costs);
     return(0);
 }
