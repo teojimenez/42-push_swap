@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int look_error(char *str)
+int isNum(char *str)
 {
 	char *regex;
 	int	i;
@@ -29,94 +29,132 @@ int look_error(char *str)
 			i++;
 		}
 		if(regex[i] == '\0' && regex[i - 1] != *str)
-		{
-			write(1, "ERROR", 5);
 			return (-1);
-		}
 		str++;
 	}
 	return (0);
 }
 
-int ft_atoi(char *str)
+int isRepeat(char *str, t_node **lst)
 {
-	int	i;
-	int	nb;
-	int	sig;
-
-	sig = 1;
-	i = 0;
-	nb = 0;
-	if (str[i] == '-')
+	int nb;
+	nb = ft_atoi(str);
+	t_node *current;
+	current = *lst;
+	while(current)
 	{
-		sig = sig * -1;
-		i++;
+		if(current->content == nb)
+			return (-1);
+		current = current->next;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = (nb * 10) + (str[i] - '0');
-		i++;
-	}
-	return (nb * sig);
+	return(0);
 }
 
-void ft_index(t_node **head) {
-    int index = 1;
-    int min = 0;
-    int max = 0;
+int look_error(char *str, t_node **lst)
+{
+	int flag = 0;
+	
+	if(isNum(str) == -1)
+		flag = -1;
+	else if(ft_atol(str) < -2147483648 || ft_atol(str) > 2147483647)
+		flag = -1;
+	else if(isRepeat(str, lst) == -1)
+		flag = -1;
+	if (flag == -1)
+		write(1, "Error\n", 6);
+	return (flag);
+}
 
-    // Encontrar el rango de contenidos
-    t_node *current = *head;
-    while (current) {
-        if (current->content < min) {
-            min = current->content;
+void ft_index(t_node **head_a, int size)
+{
+    int    step;
+    int    i = 0;
+    int    temp;
+    t_node *current = *head_a;
+  int *tab = (int *)malloc((size + 1) * sizeof(int));
+  while(i < size)
+  {
+    tab[i] = current->content;
+    current = current->next;
+    i++;
+  }
+  tab[i] = '\0';
+    step = 0;
+    while (step < size)
+    {
+        i = 0;
+        while (i < size - 1)
+        {
+            if (tab[i] > tab[i + 1])
+            {
+                temp = tab[i];
+                tab[i] = tab[i + 1];
+                tab[i + 1] = temp;
+            }
+            i++;
         }
-        if (current->content > max) {
-            max = current->content;
+        step++;
+    }
+    step = 0;
+    i = 0;
+    current = *head_a;
+    while (step < size && current)
+    {
+        i = 0;
+        while (i < size)
+        {
+          if(current->content == tab[i])
+          {
+           current->index = i + 1;
+           break;
+          }
+            i++;
         }
         current = current->next;
+        step++;
     }
-
-	int i = min;
-	while(i <= max)
-	{		
-        current = *head;
-        while (current) {
-            if (current->index == -1 && current->content == i) {
-                current->index = index++;
-            }
-            current = current->next;
-        }
-		i++;
-	}
+  
 }
 
 int is_sorted(t_node **head_a)
 {
-	t_node *current;
-	current = *head_a;
+    t_node *current;
+    current = *head_a;
 
-	while (current->next->next && current->next < current ->next->next)
-		current = current->next;
+    while (current->next)
+    {
+        if(current->content > current->next->content)
+            return (-1);
+        current = current->next;
+    }
+    return (0);
+}
+int index_sorted(t_node **head_a)
+{
+    t_node *current;
+    current = *head_a;
 
-	if (current->next->next)
-		return (0);
-	return (-1);
+    while (current->next)
+    {
+        if(current->index != current->next->index - 1)
+            return (-1);
+        current = current->next;
+    }
+    return (0);
 }
 
-int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
+
+int	convert_nb_index(int argc, char **argv, t_node **lst)
 {
 	int i = 1;
-	if	(flag == 1)
-	{
-		argc++;
-		i = 0;
-	}
 	int nb = 0;
 	int index = 0;
+
+	if(argc <= 1)
+		return (-1);
 	while (i < argc)
 	{
-        if (look_error(argv[i]) == -1)
+        if (look_error(argv[i], lst) == -1)
             return (-1);
 		else
 		{
@@ -135,7 +173,7 @@ int	convert_nb_index(int argc, char **argv, t_node **lst, int flag)
         i++;
 	}
 	ft_put_prev(lst);
-	ft_index(lst);
+	ft_index(lst, ft_lstsize(*lst));
 	return (0);
 }
 
@@ -150,25 +188,33 @@ void sort_menu(t_node **head_a)
 		sa_sb(head_a, 1);
 	else if(size == 3)
 		size3(head_a);
+	else if(size == 5)
+		size5(head_a);
 	else
 		algorithm(head_a);
 }
+#include <stdio.h>
+void print_stack(t_node **stack) 
+{ t_node **temp; temp = stack; 
+while (*temp) 
+{ 
+	printf("value -> %d\n", (*temp)->content); 
+	*temp = (*temp)->next; 
+} 
+}
+
 
 int	main(int argc, char **argv)
 {
 	t_node **stock_a;
-	int flag = 0;
-	if(argc == 2 && char_exists(argv[1], ' '))
-	{
-		argv = ft_split(argv[1], ' ');
-		flag = 1;
-	}
 	stock_a = (t_node **)malloc(sizeof(t_node *)); //porque no t_node;
 	//put the numbers in a list
-	if (convert_nb_index(argc, argv, stock_a, flag) == -1)
+	if (convert_nb_index(argc, argv, stock_a) == -1)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
 		sort_menu(stock_a);
+	print_stack(stock_a);
 	free_stack(stock_a);
+
 	return (0); 
 }

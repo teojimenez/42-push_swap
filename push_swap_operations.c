@@ -23,16 +23,16 @@ void    first_two_change(t_node **head)
     first = *head;
     if(ft_lstsize(first) < 2)
         return ;
-    //set posicions
+    //set positions
     second = *head;
     second = second->next;
     //next
-    temp = second->next;
+    temp = second->next; //tercero
     second->next = first;
     first->next = temp;
-    //set prev
-    second->prev = NULL;
-    first->prev = *head;
+
+    *head = second;
+    ft_put_prev(head);
 }
 
 /*Toma el primer elemento del stack 1 y lo pone el primero en el stack

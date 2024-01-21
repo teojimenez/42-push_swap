@@ -265,12 +265,12 @@ void push_single_cheaper(t_node **head_a, t_node **head_b, int up, int down)
     if(up >= down)
     {
       while(down-- > 0)
-        rra_rrb(head_b, 1); //down
+        rra_rrb(head_b, 0); //down
     }
     else
     {
       while(up-- > 0)
-        ra_rb(head_b, 1); //up
+        ra_rb(head_b, 0); //up
     }
   }
   pa_pb(head_a, head_b, 1);
@@ -320,5 +320,7 @@ void algorithm(t_node **head_a)
         return ; //que pete
     sort_every_chunk(tab, head_a, stock_b);
     sort_every_thing(head_a, stock_b);
+    free(stock_b);
+    stock_b = NULL;
     free(tab);
 }

@@ -44,6 +44,8 @@ void	free_stack(t_node **list);
 void    free_stack_cost(t_cost **list);
 int		char_exists(const char *str, int c);
 char	**ft_split(char const *s, char c);
+int    ft_atoi(char *str);
+long    ft_atol(const char *str);
 
 //operations and moves
 void	sa_sb(t_node **head, int flag);
@@ -65,5 +67,8 @@ int tabsize(int *tab);
 t_cost	*ft_newcost(int index, int up, int down);
 void	ft_lstclear_cost(t_cost **lst);
 void	ft_lstdelone_cost(t_cost *lst);
+void size5(t_node **head_a);
+int is_sorted(t_node **head_a);
+int index_sorted(t_node **head_a);
 
 #endif
