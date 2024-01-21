@@ -20,33 +20,37 @@ void size3(t_node **head_a)
     if(is_sorted(head_a) == 0)
 		return ;
     //case 2 1 3
-    if(current->index > current->next->index && current->index < current->next->next->index && \
-        current->next->index < current->index && current->next->index < current->next->next->index)
+    if(current->index == 2 && current->next->index == 1 && current->next->next->index == 3 && \
+    current->index < current->next->next->index && current->index > current->next->index)
         sa_sb(head_a, 1);
     //case 3 2 1
-    else if(current->index > current->next->index && \
-    current->index > current->next->next->index && current->next->index < current->index \
-    && current->next->next->index < current->next->content && current->next->next->index < current->content)
+    else if(current->index == 3 && current->next->index == 2 && current->next->next->index == 1 && \
+    current->index > current->next->next->index && current->index > current->next->index)
     {
         sa_sb(head_a, 1);
         rra_rrb(head_a, 1);
     }
     //case 3 1 2
-    else if(current->index > current->next->index && current->index > current->next->next->index \
-    && current->next->next->index > current->next->index)
+    else if(current->index == 3 && current->next->index == 1 && current->next->next->index == 2 && \
+    current->index > current->next->next->index && current->index > current->next->index   && \
+    current->next->index < current->index && current->next->index < current->next->next->index )
         ra_rb(head_a, 1);
-
     //case 1 3 2
-    else if(current->next->index > current->index && current->next->index > current->next->next->index \
-    && current->index < current->next->next->index)
+    else if(current->index == 1 && current->next->index == 3 && current->next->next->index == 2 && \
+    current->index < current->next->next->index && current->index < current->next->index && \
+    current->next->next->index < current->next->index)
     {
         sa_sb(head_a, 1);
         ra_rb(head_a, 1);
     }
-    else
+    //case 2 3 1
+    else if(current->index == 2 && current->next->index == 3 && current->next->next->index == 1 && \
+    current->index > current->next->next->index && current->index < current->next->index && \
+    current->next->index > current->next->next->index)
         rra_rrb(head_a, 1);
-
 }
+
+#include <stdio.h>
 
 void size5(t_node **head_a)
 {
@@ -100,6 +104,7 @@ void size5(t_node **head_a)
         min = current_a->index;   
         max = current_a->next->next->index;
         int op = max - min;
+        // printf("%i\n", op);
         if(op == 3)
         {
             if(current_a->next->index == op) //3
@@ -120,7 +125,7 @@ void size5(t_node **head_a)
                 sa_sb(head_a, 1);
                 pa_pb(head_a, head_b, 1);
             }
-        }
+        } 
         else if(op == 4)
         {
             if(current_a->next->index == op) //4
