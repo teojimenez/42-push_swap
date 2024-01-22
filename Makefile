@@ -12,7 +12,7 @@
 
 NAME = push_swap
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC = 	push_swap.c push_swap_utils.c lst_utils.c \
 		push_swap_split.c push_swap_operations.c \

@@ -62,7 +62,7 @@ void	rotate_down(t_node **head_a);
 void	rotate_up(t_node **head_a);
 
 void size3(t_node **head_a);
-void algorithm(t_node **head_a);
+void algorithm(t_node **head_a, int argc);
 int tabsize(int *tab);
 t_cost	*ft_newcost(int index, int up, int down);
 void	ft_lstclear_cost(t_cost **lst);
@@ -70,5 +70,6 @@ void	ft_lstdelone_cost(t_cost *lst);
 void size5(t_node **head_a);
 int is_sorted(t_node **head_a);
 int index_sorted(t_node **head_a);
+void print_stack(t_node **stack);
 
 #endif

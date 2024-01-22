@@ -12,31 +12,51 @@
 
 #include "push_swap.h"
 
-int* ft_fractions(t_node **head_a) {
+int* ft_fractions(t_node **head_a, int argc) {
     int nb;
     nb = ft_lstsize(*head_a);
     int nb_size; //->particiones
     int j = -1;
     int chunk_size; //-> tamanño de cada chunk
     int last;
+    int w = 0;
     
     if (nb % 3 == 0) //divisiones
       nb_size = 3;
     else
-      nb_size = 4;
+    {
+      if(argc > 20)
+      {
+        nb_size = 10;
+      }
+      else
+        nb_size = 5;
+      argc = nb_size;
+    }
     int *result = (int *)malloc((nb_size + 1) * sizeof(int));
     if (!result)
         return NULL;
-    if(nb_size == 4) //tamaño de cada chunk
-      chunk_size = nb / 4;
+    if(nb_size == argc) //tamaño de cada chunk
+      chunk_size = nb / argc;
     else 
       chunk_size = nb / 3;
-    if (nb_size == 4) //si es de 4 añadir lo que falta a last
-      last = nb - (chunk_size * 3);
+    if (nb_size == argc) //si es de 4 añadir lo que falta a last
+      last = nb - (chunk_size * nb_size - 1);
     while(++j < nb_size) //rellenar
     {
-      if (j == nb_size - 1 && nb_size == 4)
+      if (j == nb_size - 1 && nb_size == argc)
+      {
+        w = 0;
+        while(last > chunk_size)
+        {
+          if(w == j - 1)
+            w = 0;
+          result[w] += 1;
+          w++;
+          --last;
+        }
         result[j] = last;
+      }
       else
         result[j] = chunk_size;
     }
@@ -83,8 +103,16 @@ int get_rango_min(int *tab, int tab_pos)
   int all;
 
   all = 0;
-  while(tab_pos >= 0)
-    all += tab[--tab_pos];
+  while(tab_pos > 0)
+  {
+    // if(tab_pos == 0)
+    // {
+    //   all += tab[tab_pos]; 
+    //   break;
+    // }
+    // else
+      all += tab[--tab_pos];
+  }
   return (all);
 }
 
@@ -197,7 +225,8 @@ int every_chunk (int *tab, int tab_pos, t_node **head_a, t_node **head_b)
     t_cost **costs;
     costs = (t_cost **)malloc(sizeof(t_cost *));
     if(!costs)
-        return (-1);
+      return (-1);
+    (*costs) = NULL;
 
     int rango = tab[tab_pos];
     int count = 0;
@@ -277,14 +306,15 @@ void  sort_every_thing(t_node **head_a, t_node **head_b)
 }
 
 
-void algorithm(t_node **head_a)
+void algorithm(t_node **head_a, int argc)
 {
     int *tab;
-    t_node **stock_b;
-    tab = ft_fractions(head_a);
-    stock_b = (t_node **)malloc(sizeof(t_node *));
-    if (!stock_b)
-        return ; //que pete
+    t_node **stock_b = malloc(sizeof(t_node *));
+    if(!stock_b)
+      return ;
+
+    (*stock_b) = NULL;
+    tab = ft_fractions(head_a, argc);
     sort_every_chunk(tab, head_a, stock_b);
     sort_every_thing(head_a, stock_b);
     free(stock_b);

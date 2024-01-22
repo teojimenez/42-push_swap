@@ -39,14 +39,18 @@ int isRepeat(char *str, t_node **lst)
 {
 	int nb;
 	nb = ft_atoi(str);
-	t_node *current;
-	current = *lst;
-	while(current)
-	{
-		if(current->content == nb)
-			return (-1);
-		current = current->next;
-	}
+	t_node *current = NULL;
+	// if(*lst)
+	// if(!lst)
+	// {
+		current = *lst;
+		while(current)
+		{
+			if(current->content == nb)
+				return (-1);
+			current = current->next;
+		}
+	// }
 	return(0);
 }
 
@@ -177,7 +181,7 @@ int	convert_nb_index(int argc, char **argv, t_node **lst)
 	return (0);
 }
 
-void sort_menu(t_node **head_a)
+void sort_menu(t_node **head_a, int argc)
 {
 	int size;
 	t_node *current;
@@ -191,7 +195,7 @@ void sort_menu(t_node **head_a)
 	else if(size == 5)
 		size5(head_a);
 	else
-		algorithm(head_a);
+		algorithm(head_a, argc);
 }
 #include <stdio.h>
 
@@ -211,11 +215,14 @@ int	main(int argc, char **argv)
 {
 	t_node **stock_a;
 	stock_a = (t_node **)malloc(sizeof(t_node *)); //porque no t_node;
+	if(!stock_a)
+		return (-1);
+	(*stock_a) = NULL;
 	//put the numbers in a list
 	if (convert_nb_index(argc, argv, stock_a) == -1)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
-		sort_menu(stock_a);
+		sort_menu(stock_a, argc);
 	// print_stack(stock_a);
 	free_stack(stock_a);
 	return (0); 
