@@ -12,49 +12,68 @@
 
 #include "push_swap.h"
 
-int* ft_fractions(t_node **head_a, int argc) {
+int* ft_fractions(t_node **head_a) 
+{
     int nb;
     nb = ft_lstsize(*head_a);
     int nb_size; //->particiones
     int j = -1;
-    int chunk_size; //-> tamanño de cada chunk
-    int last;
-    int w = 0;
+    int chunk_size = 0; //-> tamanño de cada chunk
+    int last = 0;
+    int flag = 0;
+    // int w = 0;
     
-    if (nb % 3 == 0) //divisiones
-      nb_size = 3;
-    else
+    //depende la longitud de los numeros, se dividen por mas o por menos
+    if(nb <= 30)
     {
-      if(argc > 20)
-      {
-        nb_size = 10;
-      }
-      else
-        nb_size = 5;
-      argc = nb_size;
+      nb_size = 6;
+    }
+    else if(nb > 30 && nb <= 100)
+    {
+      nb_size = 5;
+    }
+    else
+      nb_size = 16;
+
+    //nb = 7 -> 766
+    ///nb = 20 -> 7855
+
+    //nb = 6 -> 759 ------> ESTE
+    ///nb = 19 -> 7784
+
+    //nb = 5 -> 767
+    ///nb = 18 -> 7784
+    ///nb = 17 -> 7597 --------> ESTE
+    ///nb = 16 -> 7597
+
+    // argc = nb_size;
+    chunk_size = nb / nb_size;
+    if(chunk_size * nb_size != nb)
+    {
+      last = nb - (chunk_size * nb_size);
+      nb_size++;
+      flag = 1;
     }
     int *result = (int *)malloc((nb_size + 1) * sizeof(int));
     if (!result)
         return NULL;
-    if(nb_size == argc) //tamaño de cada chunk
-      chunk_size = nb / argc;
-    else 
-      chunk_size = nb / 3;
-    if (nb_size == argc) //si es de 4 añadir lo que falta a last
-      last = nb - (chunk_size * nb_size - 1);
+
+    // if (chunk_size * nb_size != nb)
+    //   last = nb - (chunk_size * nb_size + 1);
     while(++j < nb_size) //rellenar
     {
-      if (j == nb_size - 1 && nb_size == argc)
+      if (j == nb_size - 1 && flag == 1)
       {
-        w = 0;
-        while(last > chunk_size)
-        {
-          if(w == j - 1)
-            w = 0;
-          result[w] += 1;
-          w++;
-          --last;
-        }
+        // w = 0;
+        // j++;
+        // while(last >= chunk_size)
+        // {
+        //   if(w == j - 1)
+        //     w = 0;
+        //   result[w] += 1;
+        //   w++;
+        //   --last;
+        // }
         result[j] = last;
       }
       else
@@ -306,7 +325,7 @@ void  sort_every_thing(t_node **head_a, t_node **head_b)
 }
 
 
-void algorithm(t_node **head_a, int argc)
+void algorithm(t_node **head_a)
 {
     int *tab;
     t_node **stock_b = malloc(sizeof(t_node *));
@@ -314,7 +333,7 @@ void algorithm(t_node **head_a, int argc)
       return ;
 
     (*stock_b) = NULL;
-    tab = ft_fractions(head_a, argc);
+    tab = ft_fractions(head_a);
     sort_every_chunk(tab, head_a, stock_b);
     sort_every_thing(head_a, stock_b);
     free(stock_b);

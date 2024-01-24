@@ -181,7 +181,7 @@ int	convert_nb_index(int argc, char **argv, t_node **lst)
 	return (0);
 }
 
-void sort_menu(t_node **head_a, int argc)
+void sort_menu(t_node **head_a)
 {
 	int size;
 	t_node *current;
@@ -195,7 +195,7 @@ void sort_menu(t_node **head_a, int argc)
 	else if(size == 5)
 		size5(head_a);
 	else
-		algorithm(head_a, argc);
+		algorithm(head_a);
 }
 #include <stdio.h>
 
@@ -222,7 +222,7 @@ int	main(int argc, char **argv)
 	if (convert_nb_index(argc, argv, stock_a) == -1)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
-		sort_menu(stock_a, argc);
+		sort_menu(stock_a);
 	// print_stack(stock_a);
 	free_stack(stock_a);
 	return (0); 
