@@ -16,22 +16,33 @@
 hay uno o menos elementos.*/
 void    first_two_change(t_node **head)
 {
-    t_node  *first;
-    t_node  *second;
-    t_node  *temp;
+    // t_node  *first;
+    // t_node  *second;
+    // t_node  *temp;
 
-    first = *head;
-    if(ft_lstsize(first) < 2)
+    // first = *head;
+    // if(ft_lstsize(first) < 2)
+    //     return ;
+    // //set positions
+    // second = *head;
+    // second = second->next;
+    // //next
+    // temp = second->next; //tercero
+    // second->next = first;
+    // first->next = temp;
+
+    // *head = second;
+    t_node *first;
+    t_node *second;
+
+    if(ft_lstsize(*head) < 2)
         return ;
-    //set positions
-    second = *head;
-    second = second->next;
-    //next
-    temp = second->next; //tercero
+    first = *head;
+    second = (*head)->next;
+    first->next = second->next;
     second->next = first;
-    first->next = temp;
-
     *head = second;
+
     ft_put_prev(head);
 }
 

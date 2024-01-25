@@ -61,8 +61,8 @@ void size3(t_node **head_a)
 
 void size5(t_node **head_a)
 {
-    t_node *current_a;
-    t_node *current_b;
+    // t_node *current_a;
+    // t_node *current_b;
     t_node **head_b;
     head_b = (t_node **)malloc(sizeof(t_node *));
     if (!head_b)
@@ -71,91 +71,53 @@ void size5(t_node **head_a)
     pa_pb(head_a, head_b, 0);
     pa_pb(head_a, head_b, 0);
     size3(head_a);
-    current_a = *head_a;
-    current_b = *head_b;
+    // current_a = *head_a;
+    // current_b = *head_b;
 
-    int min;
-    int max;
-    if(index_sorted(head_a) != -1)
+    // int min;
+    // int max;
+    if((*head_b)->index < (*head_b)->next->index) //ex: 1 4
+        sa_sb(head_b, 0);
+    
+    // current_a = *head_a;
+    // current_b = *head_b;
+    if((*head_b)->index > (*head_a)->next->next->index) //si
     {
-        min = current_a->index;   
-        max = current_a->next->next->index;
-        if(min == 1)
-        {
-            if(current_b->index != 4)
-                sa_sb(head_b, 0);
-            pa_pb(head_a, head_b, 1);
-            ra_rb(head_a, 1);
-            pa_pb(head_a, head_b, 1);
-            ra_rb(head_a, 1);
-        }
-        else if(min == 2)
-        {
-            if(current_b->index != 1)
-                sa_sb(head_b, 0);
-            pa_pb(head_a, head_b, 1);
-            pa_pb(head_a, head_b, 1);
-            ra_rb(head_a, 1);
+        pa_pb(head_a, head_b, 1);
+        ra_rb(head_a, 1);
+    }else if((*head_b)->index > (*head_a)->next->index)//si
+    {
+        pa_pb(head_a, head_b, 1);
+        sa_sb(head_a, 1);
+        pa_pb(head_a, head_b, 0);
+        sa_sb(head_a, 1);
+        pa_pb(head_a, head_b, 1);
+    }else if((*head_b)->index > (*head_a)->index)
+    {
+        pa_pb(head_a, head_b, 1);
+        sa_sb(head_a, 1);
+        // rra_rrb(head_a, 1);
+        // rra_rrb(head_a, 1);
+        // rra_rrb(head_a, 1);
+    }
 
-        }
-        else if(min == 3)
-        {
-            if(current_b->index == 1)
-                sa_sb(head_b, 0);
-            pa_pb(head_a, head_b, 1);
-            pa_pb(head_a, head_b, 1);
-        }
-    }
-    else
+    if((*head_b)->index < (*head_a)->index)//si
     {
-        min = current_a->index;   
-        max = current_a->next->next->index;
-        int op = max - min;
-        // printf("%i\n", op);
-        if(op == 3)
-        {
-            if(current_a->next->index == op) //3
-            {
-                if(current_b->index == 4)
-                    sa_sb(head_b, 0);
-                pa_pb(head_a, head_b, 1);
-                rra_rrb(head_a, 1);
-                pa_pb(head_a, head_b, 1);
-                ra_rb(head_a, 1);
-                ra_rb(head_a, 1);
-            }
-            else
-            {
-                if(current_b->index == 1)//aqui
-                    sa_sb(head_b, 0);
-                pa_pb(head_a, head_b, 1);
-                sa_sb(head_a, 1);
-                pa_pb(head_a, head_b, 1);
-            }
-        } 
-        else if(op == 4)
-        {
-            if(current_a->next->index == op) //4
-            {
-                if(current_b->index == 2)
-                    sa_sb(head_b, 0);
-                pa_pb(head_a, head_b, 1);
-                sa_sb(head_a, 1);
-                pa_pb(head_a, head_b, 1);
-                sa_sb(head_a, 1);
-            }
-            else
-            {
-                if(current_b->index == 2)
-                    sa_sb(head_b, 0);
-                rra_rrb(head_a, 1);
-                pa_pb(head_a, head_b, 1);
-                ra_rb(head_a, 1);
-                ra_rb(head_a, 1);
-                pa_pb(head_a, head_b, 1);
-                sa_sb(head_a, 1);
-            }
-        }
+        pa_pb(head_a, head_b, 1);
     }
+    else if((*head_b)->index < (*head_a)->next->index)//si
+    {
+        pa_pb(head_a, head_b, 1);
+        sa_sb(head_a, 0);
+        // pa_pb(head_a, head_b, 1);
+    }
+    else if((*head_b)->index < (*head_a)->next->next->index) //si
+    {
+        pa_pb(head_a, head_b, 1);
+        sa_sb(head_a, 0);
+        pa_pb(head_a, head_b, 0);
+        sa_sb(head_a, 0);
+        pa_pb(head_a, head_b, 1);
+    }  
     free_stack(head_b);
 }

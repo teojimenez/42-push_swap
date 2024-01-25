@@ -223,7 +223,7 @@ int	main(int argc, char **argv)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
 		sort_menu(stock_a);
-	// print_stack(stock_a);
+	print_stack(stock_a);
 	free_stack(stock_a);
 	return (0); 
 }
