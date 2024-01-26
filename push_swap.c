@@ -192,6 +192,8 @@ void sort_menu(t_node **head_a)
 		sa_sb(head_a, 1);
 	else if(size == 3)
 		size3(head_a);
+	else if(size == 4)
+		size4(head_a);
 	else if(size == 5)
 		size5(head_a);
 	else
@@ -223,7 +225,7 @@ int	main(int argc, char **argv)
 		return (free_stack(stock_a), 0);
 	if(is_sorted(stock_a) == -1)
 		sort_menu(stock_a);
-	print_stack(stock_a);
+	// print_stack(stock_a);	
 	free_stack(stock_a);
 	return (0); 
 }
