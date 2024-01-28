@@ -22,32 +22,17 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-int     char_exists(const char *str, int c)
+int	tabsize(int *tab)
 {
 	int	i;
-	int	size;
 
-	size = ft_strlen(str);
 	i = 0;
-	while (i <= size)
-	{
-		if (str[i] == (char)c)
-			return 1;
+	while (tab[i])
 		i++;
-	}
-	return (0);
+	return (i);
 }
 
-int tabsize(int *tab)
-{
-    int i = 0;
-
-    while(tab[i])
-      i++;
-    return (i);
-}
-
-int ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
 	int	i;
 	int	nb;
@@ -69,11 +54,11 @@ int ft_atoi(char *str)
 	return (nb * sig);
 }
 
-long    ft_atol(const char *str)
+long	ft_atol(const char *str)
 {
-    long    sig;
-	long    nb;
-	int i;
+	long	sig;
+	long	nb;
+	int		i;
 
 	i = 0;
 	sig = 1;

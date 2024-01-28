@@ -12,12 +12,17 @@
 
 NAME = push_swap
 
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g
+# -fsanitize=address
 
 SRC = 	push_swap.c push_swap_utils.c lst_utils.c \
-		push_swap_split.c push_swap_operations.c \
+		 push_swap_operations.c \
 		push_swap_moves.c push_swap_moves2.c \
-		push_swap_specific_moves.c chunks_sort.c
+		specific_nb.c chunks_sort.c \
+		sort_utils.c ft_index.c to_nb_error.c \
+		specific_nb_extra.c combined_moves.c \
+		chunks_size.c spp_cost.c spp_cost2.c \
+		ft_cost.c lst_utils_cost.c
 		
 
 OBJECTS = $(SRC:.c=.o)

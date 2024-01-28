@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*   lst_utils_cost.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teojimen <teojimen@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 11:08:52 by teojimen          #+#    #+#             */
-/*   Updated: 2024/01/10 11:08:52 by teojimen         ###   ########.fr       */
+/*   Created: 2024/01/28 18:14:23 by teojimen          #+#    #+#             */
+/*   Updated: 2024/01/28 18:14:23 by teojimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_lstadd_back(t_node **lst, t_node *new)
+void	ft_lstadd_back_cost(t_cost **lst, t_cost *new)
 {
-	t_node	*p;
+	t_cost	*p;
 
 	if (*lst)
 	{
@@ -27,51 +27,24 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 		*lst = new;
 }
 
-void	ft_put_prev(t_node **head_a)
+t_cost	*ft_newcost(int index, int up, int down)
 {
-	t_node	*current;
-	t_node	*prev;
+	t_cost	*node;
 
-	prev = NULL;
-	current = *head_a;
-	while (current)
-	{
-		current->prev = prev;
-		prev = current;
-		current = current->next;
-	}
-}
-
-int	ft_lstsize(t_node *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
-
-t_node	*ft_newnode(int content)
-{
-	t_node	*node;
-
-	node = (t_node *)malloc(sizeof(t_node));
+	node = (t_cost *)malloc(sizeof(t_cost));
 	if (!node)
 		return (NULL);
-	node->content = content;
-	node->index = -1;
+	node->index = index;
+	node->cost_up = up;
+	node->cost_down = down;
 	node->next = NULL;
 	return (node);
 }
 
-void	free_stack(t_node **list)
+void	free_stack_cost(t_cost **list)
 {
-	t_node	*node;
-	t_node	*temp;
+	t_cost	*temp;
+	t_cost	*node;
 
 	node = *list;
 	while (node)
@@ -81,4 +54,23 @@ void	free_stack(t_node **list)
 		free(temp);
 	}
 	free(list);
+}
+
+void	ft_lstclear_cost(t_cost **lst)
+{
+	t_cost	*temp;
+
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		ft_lstdelone_cost(*lst);
+		*lst = temp;
+	}
+}
+
+void	ft_lstdelone_cost(t_cost *lst)
+{
+	if (!lst)
+		return ;
+	free(lst);
 }

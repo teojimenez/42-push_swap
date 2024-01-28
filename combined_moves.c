@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_moves2.c                                 :+:      :+:    :+:   */
+/*   combined_moves.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teojimen <teojimen@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 00:41:10 by teojimene         #+#    #+#             */
-/*   Updated: 2024/01/09 00:41:10 by teojimene        ###   ########.fr       */
+/*   Created: 2024/01/28 12:26:53 by teojimen          #+#    #+#             */
+/*   Updated: 2024/01/28 12:26:53 by teojimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rra_rrb(t_node **head, int flag)
+void	pa_and_ra(t_node **head_a, t_node **head_b)
 {
-	rotate_down(head);
-	if (flag == 1)
-		write(1, "rra\n", 4);
-	else
-		write(1, "rrb\n", 4);
+	pa_pb(head_a, head_b, 1);
+	ra_rb(head_a, 1);
 }
 
-void	rrr(t_node **head_a, t_node **head_b)
+void	pa_and_sa(t_node **head_a, t_node **head_b)
 {
-	rotate_down(head_a);
-	rotate_down(head_b);
-	write(1, "rrr\n", 4);
+	pa_pb(head_a, head_b, 1);
+	sa_sb(head_a, 1);
+}
+
+void	rra_pa_ra_ra(t_node **head_a, t_node **head_b)
+{
+	rra_rrb(head_a, 1);
+	pa_pb(head_a, head_b, 1);
+	ra_rb(head_a, 1);
+	ra_rb(head_a, 1);
 }
