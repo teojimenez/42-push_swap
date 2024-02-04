@@ -21,7 +21,7 @@ int	get_nb_fractions(int nb)
 	else if (nb > 30 && nb <= 100)
 		fractions = 5;
 	else
-		fractions = 16;
+		fractions = 12;
 	return (fractions);
 }
 
