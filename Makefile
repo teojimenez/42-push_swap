@@ -15,21 +15,21 @@ NAME = push_swap
 FLAGS = -Wall -Wextra -Werror -g
 # -fsanitize=address
 
-SRC = 	push_swap.c push_swap_utils.c lst_utils.c \
-		 push_swap_operations.c \
-		push_swap_moves.c push_swap_moves2.c \
-		specific_nb.c chunks_sort.c \
-		sort_utils.c ft_index.c to_nb_error.c \
-		specific_nb_extra.c combined_moves.c \
-		chunks_size.c spp_cost.c spp_cost2.c \
-		ft_cost.c lst_utils_cost.c
+SRC = 	src/push_swap.c src/push_swap_utils.c src/lst_utils.c \
+		 src/push_swap_operations.c \
+		src/push_swap_moves.c src/push_swap_moves2.c \
+		src/specific_nb.c src/chunks_sort.c \
+		src/sort_utils.c src/ft_index.c src/to_nb_error.c \
+		src/specific_nb_extra.c src/combined_moves.c \
+		src/chunks_size.c src/spp_cost.c src/spp_cost2.c \
+		src/ft_cost.c src/lst_utils_cost.c src/error.c
 		
 
 OBJECTS = $(SRC:.c=.o)
 
 CC = gcc
 
-%.o:%.c		Makefile push_swap.h
+%.o:%.c		Makefile includes/push_swap.h
 			${CC} ${FLAGS} -I ./ -c $< -o $@
 
 $(NAME):	${OBJECTS}
