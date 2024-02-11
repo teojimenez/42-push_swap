@@ -46,6 +46,8 @@ int	ft_atoi(char *str)
 		sig = sig * -1;
 		i++;
 	}
+	if (str[i] == '+')
+		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i] - '0');

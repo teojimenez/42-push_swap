@@ -12,13 +12,6 @@
 
 #include "../includes/push_swap.h"
 
-int	ft_error(int type)
-{
-	if (type == 1)
-		write(2, "Error\n", 7);
-	return (-1);
-}
-
 int	ft_isdigit(int c)
 {
 	if (c > 47 && c < 58)

@@ -88,9 +88,9 @@ int		up_in_one_index(t_node **head_a, int index);
 int		get_rango_min(int *tab, int tab_pos);
 void	push_less_cost(t_cost **costs, t_node **head_a, t_node **head_b);
 int		content_in_costs(int *tab, int tab_pos, t_cost **costs, t_node**head_a);
-int		ft_error(int type);
 int		ft_duplicated(char *str);
 int		ft_strlen(const char *str);
 int		ft_isdigit(int c);
-
+int		supp_is_num(char c, int *min_c, int *max_c, char str);
+int		supp2_is_num(int min_c, int max_c, char *s);
 #endif

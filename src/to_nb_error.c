@@ -12,29 +12,29 @@
 
 #include "../includes/push_swap.h"
 
-int	is_num(char *str)
+int	is_num(char *s)
 {
 	char	*regex;
 	int		i;
 	int		min_c;
+	int		max_c;
+	char	*str;
 
 	i = -1;
+	str = s;
 	min_c = 0;
-	regex = "-0123456789";
-	if (!str || *str == '\0')
-		return (-1);
+	max_c = 0;
+	regex = "-+0123456789";
 	while (*str)
 	{
 		i = -1;
 		while (regex[++i] != '\0')
 		{
-			if (regex[i] == *str && regex[i] == '-')
-				min_c++;
-			if (regex[i] == *str)
+			if (!supp_is_num(regex[i], &min_c, &max_c, *str))
 				break ;
 		}
-		if ((regex[i] == '\0' && regex[i - 1] != *str) \
-		|| min_c > 1 || (str[0] == '-' && min_c > 1))
+		if ((!supp2_is_num(min_c, max_c, s)) \
+		|| (regex[i] == '\0' && regex[i - 1] != *str))
 			return (-1);
 		str++;
 	}
@@ -63,6 +63,8 @@ int	look_error(char *str, t_node **lst)
 
 	flag = 0;
 	if (!str || (!ft_isdigit(str[0]) && ft_strlen(str) == 1))
+		flag = -1;
+	else if (!str || *str == '\0')
 		flag = -1;
 	else if (is_num(str) == -1)
 		flag = -1;
@@ -105,11 +107,6 @@ int	convert_nb_index(int argc, char **argv, t_node **lst)
 	int	i;
 
 	i = 1;
-	if (is_num(argv[1]) == -1 && ft_lstsize(*lst) < 2)
-	{
-		look_error("", 0);
-		return (-1);
-	}
 	while (i < argc)
 	{
 		if (supp_convert_nb_index(argv, &i, lst) == -1)

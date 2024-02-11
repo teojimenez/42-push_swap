@@ -22,7 +22,8 @@ SRC = 	src/push_swap.c src/push_swap_utils.c src/lst_utils.c \
 		src/sort_utils.c src/ft_index.c src/to_nb_error.c \
 		src/specific_nb_extra.c src/combined_moves.c \
 		src/chunks_size.c src/spp_cost.c src/spp_cost2.c \
-		src/ft_cost.c src/lst_utils_cost.c src/error.c
+		src/ft_cost.c src/lst_utils_cost.c src/error.c \
+		src/spp_is_num.c
 		
 
 OBJECTS = $(SRC:.c=.o)
