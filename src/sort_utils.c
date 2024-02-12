@@ -17,6 +17,8 @@ int	is_sorted(t_node **head_a)
 	t_node	*current;
 
 	current = *head_a;
+	if (ft_lstsize(*head_a) < 2)
+		return (0);
 	while (current->next)
 	{
 		if (current->content > current->next->content)
